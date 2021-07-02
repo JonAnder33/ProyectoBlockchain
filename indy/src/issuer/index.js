@@ -1,14 +1,25 @@
 'use strict';
 const sdk = require('indy-sdk');
+//const blockchain = require('../../../ui/blockchain/blockchain.js');
 const indy = require('../../index.js');
+const blockchain = require('../blockchain/index.js');
 const { obtenerCompra } = require('../blockchain/index.js');
-const numero=0;
+var i=1;
+
 
 exports.createSchema = async function (name, version, attributes) {
 
+    try {
+
+        BlockChain =  indy.blockchain.crearBlockchain();
+        bloque =  indy.blockchain.creaBlock(1,Date.now,attributes,"816534932c2b7154836da6afc367695e6337db8a921823784c14378abed4f7d7");
+        indy.blockchain.addBlock(BlockChain,bloque);
+    } catch (error) {
+        
+    }
     
-    //Esta funcion lo que hara sera crear un Schema cuyo atributo sera el hash de el bloque que este al final de la cadena
-    let [id, schema] = await sdk.issuerCreateSchema(await indy.did.getEndpointDid(), name, version, [ await indy.blockchain.creaBlock(1,Date.now,attributes,"816534932c2b7154836da6afc367695e6337db8a921823784c14378abed4f7d7")]);
+  
+    let [id, schema] = await sdk.issuerCreateSchema(await indy.did.getEndpointDid(), name, version, [attributes]);
     let schemaRequest = await sdk.buildSchemaRequest(await indy.did.getEndpointDid(), schema);
     await sdk.signAndSubmitRequest(await indy.pool.get(), await indy.wallet.get(), await indy.did.getEndpointDid(), schemaRequest);
     await indy.did.pushEndpointDidAttribute('schemas', id);
