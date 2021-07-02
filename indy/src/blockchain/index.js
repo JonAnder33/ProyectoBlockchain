@@ -26,6 +26,9 @@ class CryptoBlock{
     
 }
 
+/**
+ * Clase Blockchain
+ */
 class Blockchain{
     constructor() {
     this.chain = [this.createGenesis()];
@@ -38,27 +41,16 @@ class Blockchain{
         return this.chain[this.chain.length - 1]
          }  
          
-   addBlock(newBlock){
-        newBlock.previousHash = this.latestBlock().hash;
-        newBlock.hash = newBlock.calculateHash();
-        this.chain.push(newBlock);
-        }
+
 }
 
-/*exports.checkValid()= async function(Blockchain) {
-    for(let i = 1; i < Blockchain.chain.length; i++) {
-    const currentBlock = Blockchain.chain[i];
-    const previousBlock = Blockchain.chain[i - 1];
-    if (currentBlock.hash !== currentBlock.calculateHash()) {
-    return false;
+//Funcion que agregara un bloque a un blockchain
+exports.addBlock= async function(blockchain,newBlock){
+    newBlock.previousHash = blockchain.latestBlock().hash;
+    newBlock.hash = newBlock.calculateHash();
+    blockchain.chain.push(newBlock);
+    return 0;
     }
-    if (currentBlock.previousHash !== previousBlock.hash) {
-    return false;
-    }
-    }
-    return true;
-    }*/
-
 
 //Calcula el hash, aunque he de decir que debido a no poder implementar las librerias que contienen el metodo SHA256 metodo que es para calcular
 //el hash pues he tenido que improvisar con esto (que es un random basico), ya que no me dejaba implementarla ni usar ninguna libreria externa
@@ -74,13 +66,8 @@ exports.computeHash= async function(){
 }
 //crea un bloque (se pueden añadir mas) y regresa el hash del bloque 
 exports.creaBlock = async function (index, timestamp, data, precedingHash) {
-        new CryptoBlock(index, timestamp, data, precedingHash);
-        //new CryptoBlock(index+1, timestamp, "", await indy.blockchain.obtenerBlockHash(index,timestamp,data,precedingHash));
-        //new CryptoBlock(index+2, timestamp, "", await indy.blockchain.obtenerBlockHash(index+1,timestamp,data,await indy.blockchain.obtenerBlockHash(index,timestamp,data,precedingHash)));
-        //let contraseña = await indy.blockchain.obtenerBlockHash(index+2, timestamp, "", await indy.blockchain.obtenerBlockHash(index+1,timestamp,data,await indy.blockchain.obtenerBlockHash(index,timestamp,data,precedingHash)));
-        //new CryptoBlock(index+3, timestamp, "", contraseña);
-        let contraseña = await indy.blockchain.obtenerBlockHash(index, timestamp, data, precedingHash);
-        return contraseña;
+        bloque= new CryptoBlock(index, timestamp, data, precedingHash);
+        return bloque;
 };
 
 //Funcion que devuelve el hash, aunque he de decir que debido a no poder implementar las librerias que contienen el metodo SHA256 metodo que es para calcular
@@ -95,7 +82,9 @@ exports.obtenerBlockHash = async function (index, timestamp, data, precedingHash
     return hashcalculado.toString();
 
 };
+//crea un blockchain
 exports.crearBlockchain = async function(){
-    var Pepe = new Blockchain;
-    module.exports = Pepe;};
+    blockchain = new Blockchain;
+    return blockchain;
+};
 
