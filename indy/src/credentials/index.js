@@ -3,6 +3,9 @@ const sdk = require('indy-sdk');
 const indy = require('../../index.js');
 const utils = require('../utils');
 
+/**
+ * Establece los tipos de mensajes
+ */
 const MESSAGE_TYPES = {
   OFFER: "urn:sovrin:agent:message_type:sovrin.org/credential_offer",
   REQUEST: "urn:sovrin:agent:message_type:sovrin.org/credential_request",
@@ -10,12 +13,26 @@ const MESSAGE_TYPES = {
 };
 exports.MESSAGE_TYPES = MESSAGE_TYPES;
 
+/**
+ * 
+ */
 exports.handlers = require('./handlers');
 
+/**
+ * Funcion que devuelve todas las credenciales
+ * @returns 
+ */
 exports.getAll = async function () {
   return await sdk.proverGetCredentials(await indy.wallet.get(), {});
 };
 
+/**
+ * 
+ * @param {*} theirDid 
+ * @param {*} credentialDefinitionId 
+ * @param {*} credentialData 
+ * @returns 
+ */
 exports.sendOffer = async function (theirDid, credentialDefinitionId, credentialData) {
   if (theirDid === '_self_') {
     return issueCredentialToSelf(credentialDefinitionId, credentialData);
