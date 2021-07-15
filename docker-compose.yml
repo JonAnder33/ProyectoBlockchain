@@ -25,7 +25,7 @@ services:
   
   # Agents
   
-  tesla:
+  Empresa-Jefe:
     image: indy-agentjs
     build:
       context: .
@@ -33,10 +33,10 @@ services:
     #    command: "bash -c 'npm start'"
     environment:
     - PORT=3000
-    - NAME=Tesla
-    - EMAIL=issuer@Tesla.com
+    - NAME=Empresa-Jefe
+    - EMAIL=Empresa-Jefe@gmail.com
     - PASSWORD=123
-    - USERNAME=tesla
+    - USERNAME=Empresa-Jefe
     - PUBLIC_DID_ENDPOINT=173.17.0.99:3000
     - DOCKERHOST=${DOCKERHOST}
     - RUST_LOG=${RUST_LOG}
@@ -50,16 +50,16 @@ services:
       services:
         ipv4_address: 173.17.0.99
 
-  requester-vehicle:
+  Empresa-Subcontratada-1:
     image: indy-agentjs
     command: "bash -c 'node --inspect=0.0.0.0 ./bin/www'"
     #    command: "bash -c 'npm start'"
     environment:
       - PORT=3001
-      - NAME=Requester-Vehicle
-      - EMAIL=requester-vehicle@tesla.com
+      - NAME=Empresa-Subcontratada-1
+      - EMAIL=Empresa-Subcontratada-1@gmail.com
       - PASSWORD=123
-      - USERNAME=requester-vehicle
+      - USERNAME=Empresa-Subcontratada-1
       - PUBLIC_DID_ENDPOINT=173.17.0.11:3001
       - DOCKERHOST=${DOCKERHOST}
       - RUST_LOG=${RUST_LOG}
@@ -69,23 +69,23 @@ services:
       - 9221:9229
     depends_on:
       - pool
-      - tesla
+      - Empresa-Jefe
     networks:
       services:
         ipv4_address: 173.17.0.11
 
   #
   #
-  front-vehicle:
+  Empresa-Subcontratada-2:
     image: indy-agentjs
     command: "bash -c 'node --inspect=0.0.0.0 ./bin/www'"
     #    command: "bash -c 'npm start'"
     environment:
       - PORT=3002
-      - NAME=Front-Vehicle
-      - EMAIL=front-vehicle@tesla.com
+      - NAME=Empresa-Subcontratada-2
+      - EMAIL=Empresa-Subcontratada-2@gmail.com
       - PASSWORD=123
-      - USERNAME=front-vehicle
+      - USERNAME=Empresa-Subcontratada-2
       - PUBLIC_DID_ENDPOINT=173.17.0.22:3002
       - DOCKERHOST=${DOCKERHOST}
       - RUST_LOG=${RUST_LOG}
@@ -95,7 +95,7 @@ services:
       - 9222:9229
     depends_on:
       - pool
-      - tesla
+      - Empresa-Jefe
     networks:
       services:
         ipv4_address: 173.17.0.22
