@@ -12,6 +12,6 @@ docker-compose up
 ### Access the agents in a web browser:
 
 To open an agent instance, in a web browser navigate to:
-* `localhost:3000` for Tesla    (Username: tesla, Password: 123)
-* `localhost:3001` for Requester-Vehicle    (Username: requester-vehicle, Password: 123)
-* `localhost:3002` for Front-Vehicle    (Username: front-vehicle, Password: 123)
+* `localhost:3000` for Empresa-Jefe    (Username: Empresa-Jefe, Password: 123)
+* `localhost:3001` for Empresa-Subcontratada-1    (Username: Empresa-Subcontratada-1, Password: 123)
+* `localhost:3002` for Empresa-Subcontratada-2    (Username: Empresa-Subcontratada-2, Password: 123)
