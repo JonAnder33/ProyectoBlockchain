@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const indy = require('../../indy/index');
 const auth = require('../authentication');
+let arraybloque;
+let cripto;
+let numero=1;
 
 router.get('/', function (req, res, next) {
     res.send("Success");
@@ -25,6 +28,8 @@ router.post('/send_connection_request', auth.isLoggedIn, async function (req, re
 
 router.post('/issuer/create_schema', auth.isLoggedIn, async function (req, res) {
     await indy.issuer.createSchema(req.body.name_of_schema, req.body.version, req.body.attributes);
+
+    
     res.redirect('/#issuing');
 });
 
@@ -35,6 +40,32 @@ router.post('/issuer/create_cred_def', auth.isLoggedIn, async function (req, res
 
 router.post('/issuer/send_credential_offer', auth.isLoggedIn, async function (req, res) {
     await indy.credentials.sendOffer(req.body.their_relationship_did, req.body.cred_def_id, req.body.cred_data);
+            //Codigo del blockchain
+            try {
+                if (!arraybloque) {
+                    cripto = await indy.blockchain.createGenesis();
+                    arraybloque = await indy.blockchain.crearBlockchain(cripto);
+                    //Arreglar esto
+                    hashanterior = indy.blockchain.latestBlock(arraybloque) ;
+                    let bloque = await indy.blockchain.creaBlock(numero, new Date().toLocaleDateString(), req.body.cred_data, cripto._hash);
+                    //indy.blockchain.latestBlock(arraybloque);
+                    //await indy.blockchain.computeHash(crypto);
+                    await indy.blockchain.addBlock(arraybloque, bloque);
+                    cripto = bloque;
+                    numero=numero+1
+                } else {
+                    //Arreglar esto
+                    //hashanterior = indy.blockchain.latestBlock(arraybloque) ;
+                    
+                    //indy.blockchain.latestBlock(arraybloque);
+                    //await indy.blockchain.computeHash(crypto);
+                    await indy.blockchain.addBlock(arraybloque, await indy.blockchain.creaBlock(numero, new Date().toLocaleDateString(), req.body.cred_data, cripto._hash));
+                    cripto = await indy.blockchain.creaBlock(numero, new Date().toLocaleDateString(), req.body.cred_data, cripto._hash);
+                    numero=numero+1;
+                }
+            } catch (error) {
+                
+            }
     res.redirect('/#issuing');
 });
 
