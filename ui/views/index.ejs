@@ -147,7 +147,7 @@
                     <div class="w3-section">
                         Message: <textarea id="send_message_form_message" class="w3-input" name="message" rows="6">{
     "type":"SOME_TYPE",
-    "message":"HOLAAAA"
+    "message":"test"
 }</textarea>
                     </div>
                     <input class="w3-btn w3-white w3-border" style="display:block;margin:auto;" type="submit"
@@ -187,45 +187,45 @@
         <!--<a onclick="document.getElementById('aboutModel').style.display='block'" class="w3-right w3-bar-item w3-button w3-padding-16">About</a>-->
         <a href="/logout" class="w3-right w3-bar-item w3-button w3-padding-16">Logout</a>
         <a class="w3-right w3-bar-item w3-padding-16">Welcome <%=name%></a>
-        <% if(name === 'Tesla'){ %>
-        <a href=""><img class="w3-left w3-bar-item" width="55px" height="55px" src="/images/tesla.png"></a>
+        <% if(name === 'Empresa-Jefe'){ %>
+        <a href=""><img class="w3-left w3-bar-item" width="55px" height="55px" src="/images/sovrinIcon.png"></a>
 
         <a href="#relationships" id="relationships_link" class="w3-left w3-bar-item w3-button w3-padding-16 tab_link"
             onclick="showTab('relationships')">Relationships</a>
-        <!-- <a href="#credentials" id="credentials_link" class="w3-left w3-bar-item w3-button w3-padding-16 tab_link"
+        <a href="#credentials" id="credentials_link" class="w3-left w3-bar-item w3-button w3-padding-16 tab_link"
         onclick="showTab('credentials')">Credentials</a>
-    <a href="#proofs" id="proofs_link" class="w3-left w3-bar-item w3-button w3-padding-16 tab_link"
+    <!--<a href="#proofs" id="proofs_link" class="w3-left w3-bar-item w3-button w3-padding-16 tab_link"
         onclick="showTab('proofs')">Proof Requests</a> -->
         <a href="#issuing" id="issuing_link" class="w3-left w3-bar-item w3-button w3-padding-16 tab_link"
-            onclick="showTab('issuing')">Buying</a>
+            onclick="showTab('issuing')">Issuing</a>
         <a href="#messages" id="messages_link" class="w3-left w3-bar-item w3-button w3-padding-16 tab_link"
             onclick="showTab('messages')">Messages</a>
         <% } %>
 
-        <% if(name === 'Requester-Vehicle'){ %>
-        <a href=""><img class="w3-left w3-bar-item" width="55px" height="55px" src="/images/requester-vehicle.png"></a>
+        <% if(name === 'Empresa-1'){ %>
+        <a href=""><img class="w3-left w3-bar-item" width="55px" height="55px" src="/images/sovrinIcon.png"></a>
         <a href="#relationships" id="relationships_link" class="w3-left w3-bar-item w3-button w3-padding-16 tab_link"
             onclick="showTab('relationships')">Relationships</a>
         <a href="#credentials" id="credentials_link" class="w3-left w3-bar-item w3-button w3-padding-16 tab_link"
             onclick="showTab('credentials')">Credentials</a>
-        <!-- <a href="#proofs" id="proofs_link" class="w3-left w3-bar-item w3-button w3-padding-16 tab_link"
+        <a href="#proofs" id="proofs_link" class="w3-left w3-bar-item w3-button w3-padding-16 tab_link"
             onclick="showTab('proofs')">Proof Requests</a>
-        <a href="#issuing" id="issuing_link" class="w3-left w3-bar-item w3-button w3-padding-16 tab_link"
+        <!--<a href="#issuing" id="issuing_link" class="w3-left w3-bar-item w3-button w3-padding-16 tab_link"
             onclick="showTab('issuing')">Issuing</a> -->
         <a href="#messages" id="messages_link" class="w3-left w3-bar-item w3-button w3-padding-16 tab_link"
             onclick="showTab('messages')">Messages</a>
         <% } %>
 
-        <% if(name === 'Front-Vehicle'){ %>
-        <a href=""><img class="w3-left w3-bar-item" width="55px" height="55px" src="/images/front-vehicle.png"></a>
+        <% if(name === 'Empresa-2'){ %>
+        <a href=""><img class="w3-left w3-bar-item" width="55px" height="55px" src="/images/sovrinIcon.png"></a>
         <a href="#relationships" id="relationships_link" class="w3-left w3-bar-item w3-button w3-padding-16 tab_link"
             onclick="showTab('relationships')">Relationships</a>
         <a href="#credentials" id="credentials_link" class="w3-left w3-bar-item w3-button w3-padding-16 tab_link"
             onclick="showTab('credentials')">Credentials</a>
-        <!--<a href="#proofs" id="proofs_link" class="w3-left w3-bar-item w3-button w3-padding-16 tab_link"
+        <a href="#proofs" id="proofs_link" class="w3-left w3-bar-item w3-button w3-padding-16 tab_link"
             onclick="showTab('proofs')">Proof Requests</a>
-            <a href="#issuing" id="issuing_link" class="w3-left w3-bar-item w3-button w3-padding-16 tab_link"
-            onclick="showTab('issuing')">Issuing</a> -->
+        <!--<a href="#issuing" id="issuing_link" class="w3-left w3-bar-item w3-button w3-padding-16 tab_link"
+            onclick="showTab('issuing')">Issuing</a>-->
         <a href="#messages" id="messages_link" class="w3-left w3-bar-item w3-button w3-padding-16 tab_link"
             onclick="showTab('messages')">Messages</a>
         <% } %>
