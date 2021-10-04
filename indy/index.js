@@ -1,5 +1,6 @@
 'use strict';
 const config = require('../config');
+
 exports.blockchain = require('./src/blockchain');
 exports.wallet = require('./src/wallet');
 exports.connections = require('./src/connections');
