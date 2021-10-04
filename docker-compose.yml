@@ -25,7 +25,7 @@ services:
   
   # Agents
   
-  Empresa-Jefe:
+  empresa-jefe:
     image: indy-agentjs
     build:
       context: .
@@ -34,7 +34,7 @@ services:
     environment:
     - PORT=3000
     - NAME=Empresa-Jefe
-    - EMAIL=Empresa-Jefe@gmail.com
+    - EMAIL=issuer@gmail.com
     - PASSWORD=123
     - USERNAME=Empresa-Jefe
     - PUBLIC_DID_ENDPOINT=173.17.0.99:3000
@@ -50,16 +50,16 @@ services:
       services:
         ipv4_address: 173.17.0.99
 
-  Empresa-Subcontratada-1:
+  empresa-1:
     image: indy-agentjs
     command: "bash -c 'node --inspect=0.0.0.0 ./bin/www'"
     #    command: "bash -c 'npm start'"
     environment:
       - PORT=3001
-      - NAME=Empresa-Subcontratada-1
-      - EMAIL=Empresa-Subcontratada-1@gmail.com
+      - NAME=Empresa-1
+      - EMAIL=empresa1@gmail.com
       - PASSWORD=123
-      - USERNAME=Empresa-Subcontratada-1
+      - USERNAME=Empresa-1
       - PUBLIC_DID_ENDPOINT=173.17.0.11:3001
       - DOCKERHOST=${DOCKERHOST}
       - RUST_LOG=${RUST_LOG}
@@ -69,23 +69,23 @@ services:
       - 9221:9229
     depends_on:
       - pool
-      - Empresa-Jefe
+      - empresa-jefe
     networks:
       services:
         ipv4_address: 173.17.0.11
 
   #
   #
-  Empresa-Subcontratada-2:
+  empresa-2:
     image: indy-agentjs
     command: "bash -c 'node --inspect=0.0.0.0 ./bin/www'"
     #    command: "bash -c 'npm start'"
     environment:
       - PORT=3002
-      - NAME=Empresa-Subcontratada-2
-      - EMAIL=Empresa-Subcontratada-2@gmail.com
+      - NAME=Empresa-2
+      - EMAIL=empresa2@gmail.com
       - PASSWORD=123
-      - USERNAME=Empresa-Subcontratada-2
+      - USERNAME=Empresa-2
       - PUBLIC_DID_ENDPOINT=173.17.0.22:3002
       - DOCKERHOST=${DOCKERHOST}
       - RUST_LOG=${RUST_LOG}
@@ -95,7 +95,7 @@ services:
       - 9222:9229
     depends_on:
       - pool
-      - Empresa-Jefe
+      - empresa-jefe
     networks:
       services:
         ipv4_address: 173.17.0.22
