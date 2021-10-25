@@ -4,12 +4,18 @@ const indy = require('../../index.js');
 const config = require('../../../config');
 let wallet;
 
+//Un wallet es una pieza de software con la que realizar las operaciones de blockchain.
+
+//Devuelve el wallet
+
 exports.get = async function() {
     if(!wallet) {
         await exports.setup();
     }
     return wallet;
 };
+
+//Crea el wallet
 
 exports.setup = async function () {
     try {
