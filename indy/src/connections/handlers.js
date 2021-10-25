@@ -1,6 +1,7 @@
 'use strict';
 const indy = require('../../index.js');
 
+//Cuando se hace un request, primero se identifica al emisor mediante el acknowledge y luego se responde(response).
 exports.response = function (message) {
     return indy.connections.acceptResponse(message.aud, message.message);
 };
