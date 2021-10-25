@@ -5,7 +5,6 @@ const uuid = require('uuid');
 
 /*
 urn:jwm:sovrin.org/connections/v1/offer
-
  */
 
 /**
