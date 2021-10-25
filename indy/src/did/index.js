@@ -8,10 +8,14 @@ let stewardDid;
 let stewardKey;
 let stewardWallet;
 
+//Crea el Did(identidad descentralizada)
+
 exports.createDid = async function (didInfoParam) {
     let didInfo = didInfoParam || {};
     return await sdk.createAndStoreMyDid(await indy.wallet.get(), didInfo);
 };
+
+//Devuelve el EndpointDid
 
 exports.getEndpointDid = async function() {
     if(!endpointDid) {
@@ -28,6 +32,8 @@ exports.getEndpointDid = async function() {
     }
     return endpointDid;
 };
+
+//Crea el EndpointDid
 
 exports.createEndpointDid = async function () {
     await setupSteward();
@@ -47,6 +53,8 @@ exports.createEndpointDid = async function () {
     // await issueGovernmentIdCredential();
 };
 
+//Declara el EndpointDidAttribute 
+
 exports.setEndpointDidAttribute = async function (attribute, item) {
     let metadata = await sdk.getDidMetadata(await indy.wallet.get(), endpointDid);
     metadata = JSON.parse(metadata);
@@ -54,6 +62,7 @@ exports.setEndpointDidAttribute = async function (attribute, item) {
     await sdk.setDidMetadata(await indy.wallet.get(), endpointDid, JSON.stringify(metadata));
 };
 
+//Asigna el EndpointDidAttribute
 
 exports.pushEndpointDidAttribute = async function (attribute, item) {
     let metadata = await sdk.getDidMetadata(await indy.wallet.get(), endpointDid);
