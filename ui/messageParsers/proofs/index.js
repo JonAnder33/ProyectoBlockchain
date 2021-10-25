@@ -1,6 +1,8 @@
 'use strict';
 const indy = require('../../../indy');
 
+//Solicitud de prueba de identidad.
+
 exports.request = async function(message) {
     let theirDid = message.message.origin;
     let name = await indy.pairwise.getAttr(theirDid, 'name');
