@@ -1,3 +1,5 @@
+//Se encarga del inicio de sesión
+
 'use strict';
 
 exports.validTokens = [];
