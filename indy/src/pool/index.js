@@ -7,12 +7,18 @@ const fs = require('fs');
 const os = require('os');
 let pool;
 
+//Un pool es una colección de recursos listos para ser usados.
+
+//Devuelve el pool
+
 exports.get = async function() {
     if(!pool) {
         await exports.setup();
     }
     return pool;
 };
+
+//Crea el pool
 
 exports.setup = async function () {
     // see PlenumProtocolVersion or indy-plenum.common.constans.CURRENT_PROTOCOL_VERSION
@@ -33,11 +39,15 @@ exports.setup = async function () {
     }
 };
 
+//Devuelve la ruta a PoolGenesisTxn
+
 exports.getPoolGenesisTxnPath = async function(poolName) {
     let path = `${os.tmpdir()}/indy/${poolName}.txn`;
     await savePoolGenesisTxnFile(path);
     return path
 };
+
+//Devuelve la información del poolGenesisTxn
 
 async function poolGenesisTxnData() {
     let poolIp = config.testPoolIp;
@@ -47,11 +57,15 @@ async function poolGenesisTxnData() {
 {"reqSignature":{},"txn":{"data":{"data":{"alias":"Node4","blskey":"2zN3bHM1m4rLz54MJHYSwvqzPchYp8jkHswveCLAEJVcX6Mm1wHQD1SkPYMzUDTZvWvhuE6VNAkK3KxVeEmsanSmvjVkReDeBEMxeDaayjcZjFGPydyey1qxBHmTvAnBKoPydvuTAqx5f7YNNRAdeLmUi99gERUU7TD8KfAa6MpQ9bw","client_ip":"${poolIp}","client_port":9708,"node_ip":"${poolIp}","node_port":9707,"services":["VALIDATOR"]},"dest":"4PS3EDQ3dW1tci1Bp6543CfuuebjFrg36kLAUcskGfaA"},"metadata":{"from":"TWwCRQRZ2ZHMJFn9TzLp7W"},"type":"0"},"txnMetadata":{"seqNo":4,"txnId":"aa5e817d7cc626170eca175822029339a444eb0ee8f0bd20d3b0b76e566fb008"},"ver":"1"}`;
 }
 
+//Guarda el archivo 
+
 async function savePoolGenesisTxnFile(filePath) {
     let data = await poolGenesisTxnData();
     await mkdir(filePath);
     return fs.writeFileSync(filePath, data, 'utf8');
 }
+
+//Crea un subdirectorio.
 
 async function mkdir(filePath) {
     return new Promise((resolve, reject) => {
@@ -63,16 +77,22 @@ async function mkdir(filePath) {
     })
 }
 
+//Asigna el endpoint
+
 exports.setEndpointForDid = async function (did, endpoint) {
     let attributeRequest = await sdk.buildAttribRequest(await indy.did.getEndpointDid(), did, null, {endpoint: {ha: endpoint}}, null);
     await sdk.signAndSubmitRequest(await indy.pool.get(), await indy.wallet.get(), await indy.did.getEndpointDid(), attributeRequest);
 };
+
+//Devuelve el endpoint
 
 exports.getEndpointForDid = async function (did) {
     let getAttrRequest = await sdk.buildGetAttribRequest(await indy.did.getEndpointDid(), did, 'endpoint', null, null);
     let res = await waitUntilApplied(pool, getAttrRequest, data => data['result']['data'] != null);
     return JSON.parse(res.result.data).endpoint.ha;
 };
+
+//Devuelve el schema y la definición de las credenciales. (el revStates es nulo)
 
 exports.proverGetEntitiesFromLedger = async function(identifiers) {
     let schemas = {};
@@ -95,6 +115,8 @@ exports.proverGetEntitiesFromLedger = async function(identifiers) {
     return [schemas, credDefs, revStates];
 };
 
+//Devuelve el schema y la definición de las credenciales. (los revRegDefs y revRegs son nulos)
+
 exports.verifierGetEntitiesFromLedger = async function(identifiers) {
     let schemas = {};
     let credDefs = {};
@@ -115,6 +137,9 @@ exports.verifierGetEntitiesFromLedger = async function(identifiers) {
     }
     return [schemas, credDefs, revRegDefs, revRegs];
 };
+
+//Nym es el pseudonimo(apodo) del usuario
+//Este método devuelve todo lo que identifica al usuario
 
 exports.sendNym = async function(poolHandle, walletHandle, Did, newDid, newKey, role) {
     let nymRequest = await sdk.buildNymRequest(Did, newDid, newKey, null, role);
