@@ -46,6 +46,7 @@ exports.getProofRequests = async function() {
 
     return proofRequests;
 };
+//Hace un request
 exports.sendRequest = async function(myDid, theirDid, proofRequestText) {
     let proofRequest = JSON.parse(proofRequestText);
     proofRequest.nonce = randomNonce();
@@ -93,7 +94,7 @@ exports.prepareRequest = async function(message) {
         }
     }
 };
-
+//Acepta un request
 exports.acceptRequest = async function(messageId) {
     let message = indy.store.messages.getMessage(messageId);
     indy.store.messages.deleteMessage(messageId);
@@ -104,7 +105,7 @@ exports.acceptRequest = async function(messageId) {
     let theirEndpointDid = await indy.did.getTheirEndpointDid(message.message.origin);
     await indy.crypto.sendAnonCryptedMessage(theirEndpointDid, await indy.crypto.buildAuthcryptedMessage(pairwise.my_did, message.message.origin, MESSAGE_TYPES.PROOF, proof));
 };
-
+//Valida y almacena 
 exports.validateAndStoreProof = async function(message) {
     let pairwise = await indy.pairwise.get(message.origin);
     let proof = await indy.crypto.authDecrypt(pairwise.my_did, message.message);
@@ -128,7 +129,7 @@ exports.validateAndStoreProof = async function(message) {
         console.log("No pending proof request found for received proof");
     }
 };
-
+//Valida
 exports.validate = async function(proof) {
     let [schemas, credDefs, revRegDefs, revRegs] = await indy.pool.verifierGetEntitiesFromLedger(proof.identifiers);
     return await sdk.verifierVerifyProof(proof.request, proof, schemas, credDefs, revRegDefs, revRegs);
