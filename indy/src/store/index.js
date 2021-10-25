@@ -28,10 +28,14 @@ function syncChanges() {
   fs.writeFileSync(PATH, JSON.stringify(store));
 }
 
+//Vacia los almacenes de mensajes o relaciones
+
 exports.clear = function () {
   store.messages.clear();
   store.pendingRelationships.clear();
 };
+
+//Se encarga de almacenar o borrar los mensajes
 
 exports.messages = {
   getAll: function () {
@@ -75,6 +79,8 @@ exports.messages = {
   }
 };
 
+//Se encarga de almacenar o borrar las relaciones
+
 exports.pendingRelationships = {
   getAll: function () {
     init();
@@ -107,6 +113,8 @@ exports.pendingRelationships = {
     syncChanges();
   }
 };
+
+//Se encarga de almacenar o borrar los envios de credenciales
 
 exports.pendingCredentialOffers = {
     getAll: function () {
@@ -148,6 +156,8 @@ exports.pendingCredentialOffers = {
     }
 };
 
+//Se encarga de almacenar o borrar los request
+
 exports.pendingCredentialRequests = {
     getAll: function () {
         init();
@@ -188,6 +198,8 @@ exports.pendingCredentialRequests = {
         syncChanges();
     }
 };
+
+//Se encarga de almacenar o borrar los proof request
 
 exports.pendingProofRequests = {
     getAll: function () {
