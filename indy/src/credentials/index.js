@@ -33,6 +33,9 @@ exports.getAll = async function () {
  * @param {*} credentialData 
  * @returns 
  */
+
+//Envia una oferta con una credencial que identifica al emisor.
+
 exports.sendOffer = async function (theirDid, credentialDefinitionId, credentialData) {
   if (theirDid === '_self_') {
     return issueCredentialToSelf(credentialDefinitionId, credentialData);
@@ -55,6 +58,8 @@ exports.sendOffer = async function (theirDid, credentialDefinitionId, credential
   }
 };
 
+//Envia un request para identificar al receptor
+
 exports.sendRequest = async function (theirDid, encryptedMessage) {
   let myDid = await indy.pairwise.getMyDid(theirDid);
   let credentialOffer = await indy.crypto.authDecrypt(myDid, encryptedMessage);
@@ -66,6 +71,8 @@ exports.sendRequest = async function (theirDid, encryptedMessage) {
   let theirEndpointDid = await indy.did.getTheirEndpointDid(theirDid);
   return indy.crypto.sendAnonCryptedMessage(theirEndpointDid, message);
 };
+
+//Acepta un request
 
 exports.acceptRequest = async function (theirDid, encryptedMessage) {
   let myDid = await indy.pairwise.getMyDid(theirDid);
@@ -101,6 +108,8 @@ exports.acceptRequest = async function (theirDid, encryptedMessage) {
   indy.store.pendingCredentialOffers.delete(pendingCredOfferId);
 };
 
+//Acepta la credencial del receptor del request
+
 exports.acceptCredential = async function (theirDid, encryptedMessage) {
   let myDid = await indy.pairwise.getMyDid(theirDid);
   let credential = await await indy.crypto.authDecrypt(myDid, encryptedMessage);
@@ -118,6 +127,8 @@ exports.acceptCredential = async function (theirDid, encryptedMessage) {
   let credentials = await indy.credentials.getAll();
   console.log(credentials);
 };
+
+//Codifica un string
 
 exports.encode = function (string) {
   console.log(string);
@@ -137,6 +148,8 @@ exports.encode = function (string) {
   console.log(number);
   return number;
 };
+
+//Decodifica un número
 
 exports.decode = function (number) {
   console.log(number);
