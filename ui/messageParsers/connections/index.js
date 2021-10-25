@@ -1,3 +1,5 @@
+//Se encarga de las conexiones: solicitud y respuesta.
+
 'use strict';
 
 exports.connectionsRequest = function (message) {
